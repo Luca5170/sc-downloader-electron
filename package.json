@@ -1,0 +1,70 @@
+{
+  "name": "sc-downloader",
+  "productName": "SC Downloader",
+  "version": "1.0.0",
+  "description": "Film, serie TV e anime di StreamingCommunity e AnimeUnity: guarda, scarica e carica sul NAS",
+  "main": "main.js",
+  "author": "Luca",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "server": "node dev-server.js",
+    "test": "node --test test/*.test.js",
+    "pack": "electron-builder --win --dir",
+    "dist": "electron-builder --win"
+  },
+  "dependencies": {
+    "@ffprobe-installer/ffprobe": "2.1.2",
+    "cheerio": "1.2.0",
+    "ffmpeg-static": "5.3.0",
+    "qrcode": "1.5.4",
+    "ssh2": "1.17.0"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "electron-builder": "26.17.0"
+  },
+  "build": {
+    "appId": "it.luca.scdownloader",
+    "productName": "SC Downloader",
+    "copyright": "MIT License",
+    "directories": {
+      "output": "dist"
+    },
+    "electronLanguages": ["it", "en-US"],
+    "files": [
+      "main.js",
+      "src/**/*",
+      "web/**/*",
+      "assets/**/*",
+      "package.json",
+      "!**/node_modules/*/{test,tests,docs,example,examples}/**",
+      "!**/node_modules/@ffprobe-installer/{darwin,linux}*/**"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**",
+      "node_modules/@ffprobe-installer/**"
+    ],
+    "npmRebuild": false,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "signAndEditExecutable": true
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SC Downloader",
+      "artifactName": "SC Downloader Setup ${version}.exe"
+    }
+  }
+}
